@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Moataz Sameh - Machine Learning Engineer specializing in deep learning, model development, and AI applications." />
+  <meta name="keywords" content="Machine Learning Engineer, Deep Learning, AI, Python, TensorFlow, PyTorch, AWS, GCP" />
+  <title>Moataz Sameh — Machine Learning Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer"
+  />
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#f5f5f0;          
+      --card:#ffffff;        
+      --accent:#D2B48C;      
+      --accent-2:#8B7355;    
+      --text:#333333;        
+      --muted:#666666;
+      --ring: 0 0 0 3px rgba(210,180,140,.25);
+      --radius: 18px;
+      --gap: clamp(16px, 2.5vw, 24px);
+      --max: 1200px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth;line-height:1.6;}
+    a{color:inherit;text-decoration:none;transition:var(--transition);}
+    img{max-width:100%;display:block;height:auto;}
+    button {cursor:pointer;}
+
+    body, h1, h2, h3, h4, h5, h6, p, span, div, a, strong {
+      user-select: none;
+      cursor: default;
+    }
+    input, textarea, button, select {
+      user-select: text;
+      cursor: text;
+      font-family: inherit;
+    }
+
+    /* Enable text selection for message textarea */
+    #msg {
+      user-select: text;
+      cursor: text;
+    }
+
+    .wrap{max-width:var(--max);margin-inline:auto;padding:0 clamp(16px, 4vw, 40px)}
+    section{position:relative; padding: clamp(64px, 10vw, 120px) 0;border-top:1px solid #e0e0e0; overflow: hidden;}
+    .grid{display:grid;gap:var(--gap)}
+    .two{grid-template-columns:1.1fr .9fr}
+    @media (max-width:900px){.two{grid-template-columns:1fr}}
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav{
+      position:sticky;top:0;z-index:10;background:rgba(245,245,240,.95);
+      backdrop-filter:saturate(120%) blur(12px);border-bottom:1px solid #e0e0e0;
+      transition: var(--transition);
+    }
+    .nav.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .nav .inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.5px;font-size:1.2rem;background:var(--accent);color:#333;padding:10px 20px;border-radius:12px; transition: var(--transition);}
+    .brand:hover{background:var(--accent-2);color:#fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,115,85,0.3);}
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:#333;box-shadow:0 0 18px rgba(0,0,0,0.1)}
+    .links{display:flex;gap:24px;align-items:center}
+    .links a{opacity:.9;font-weight:600; transition: var(--transition); position:relative;}
+    .links a:not(.cta):after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    .links a:hover{color:var(--accent); transform: translateY(-2px);}
+    .links a:hover:after {
+      width: 100%;
+    }
+    .cta{background:var(--accent);color:#333;padding:10px 20px;border-radius:12px;font-weight:700; transition: var(--transition);}
+    .cta:hover{background:var(--accent-2);color:#fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,115,85,0.3);}
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 2rem;
+      height: 2rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+    
+    .menu-toggle span {
+      width: 2rem;
+      height: 0.25rem;
+      background: var(--text);
+      border-radius: 10px;
+      transition: var(--transition);
+      position: relative;
+      transform-origin: 1px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        height: calc(100vh - 70px);
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 3rem;
+        gap: 2.5rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      .links.open {
+        transform: translateX(0);
+      }
+
+      .brand {
+        padding: 8px 16px;
+        font-size: 1rem;
+      }
+    }
+
+    .hero{display:grid;gap:var(--gap);grid-template-columns:1.2fr .8fr;align-items:center;min-height:90vh;}
+    @media (max-width:900px){.hero{grid-template-columns:1fr; text-align:center;}}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#f0f0e8;border:1px solid #e0e0d8;padding:8px 16px;border-radius:999px;color:#666;font-size:.9rem; transition: var(--transition);}
+    .badge:hover {transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
+    .badge i{color:var(--accent)}
+    .title{font-size: clamp(32px, 5vw, 64px);line-height:1.05;margin:18px 0 12px;font-weight:800}
+    .subtitle{font-size: clamp(16px, 2.2vw, 22px);color:var(--muted);max-width:58ch; margin-bottom: 1.5rem;}
+    .social{display:flex;gap:12px;margin-top:24px; justify-content: flex-start;}
+    @media (max-width:900px){.social{justify-content: center;}}
+    .social a{
+      display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;
+      border-radius:12px;border:1px solid #e0e0d8;background:#f8f8f5; transition: var(--transition);
+    }
+    .social a:hover{outline:var(--ring);color:var(--accent); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1);}
+    .heroCard{
+      position:relative;background:var(--card);
+      border:1px solid #e8e8e0;border-radius:var(--radius);padding:28px; transition: var(--transition);
+      box-shadow:0 0 0 1px #f0f0e8, 0 20px 60px rgba(0,0,0,.1);
+      overflow: hidden; transition: var(--transition);
+    }
+    .heroCard:hover {
+      box-shadow: 0 0 0 1px #f0f0e8, 0 25px 80px rgba(210,180,140,0.15);
+      transform: translateY(-5px);
+    }
+    .heroCard img{border-radius:var(--radius);object-fit:cover;width:100%;height:100%; transition: transform 0.5s ease;}
+    .heroCard:hover img {transform: scale(1.05);}
+    .chip{position:absolute;left:8%;bottom:10%;background:#f8f8f5;border:1px solid #e0e0d8;border-radius:12px;padding:10px 16px;font-size:.9rem; z-index: 3; transition: var(--transition);}
+    .chip:hover {transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.1);}
+    .chip i{color:var(--accent);margin-right:8px}
+
+    .card{background:var(--card);border:1px solid #e8e8e0;border-radius:var(--radius);padding:28px; transition: var(--transition);}
+    .card:hover {transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: rgba(210,180,140,0.2);}
+    .btn{display:inline-flex;align-items:center;gap:10px;border-radius:12px;padding:12px 20px;font-weight:700;border:1px solid #e0e0d8;background:#f8f8f5;color:var(--text); transition: var(--transition);}
+    .btn:hover{outline:var(--ring); transform: translateY(-2px);}
+    .btn.accent{background:var(--accent);color:#333;border-color:transparent}
+    .btn.accent:hover{box-shadow:0 6px 30px rgba(210,180,140,.35); transform: translateY(-2px);}
+
+    .section-title{font-size: clamp(28px, 3vw, 42px);margin:0 0 18px;font-weight:800; position:relative; display:inline-block;background:var(--accent);color:#333;padding:10px 20px;border-radius:12px;}
+    .section-title:after {
+      display: none;
+    }
+    .muted{color:var(--muted); line-height:1.6;}
+
+    .services{display:grid;gap:var(--gap);grid-template-columns:repeat(3,1fr)}
+    @media (max-width:1000px){.services{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:650px){.services{grid-template-columns:1fr}}
+    .service h3{margin:0 0 12px;font-size:1.2rem}
+    .service p{margin:8px 0 0;color:var(--muted); line-height:1.6;}
+    .service i{color:var(--accent);margin-right:10px; font-size:1.2rem;}
+
+    .tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .tab{
+      padding:10px 18px;border-radius:12px;border:1px solid #e0e0d8;background:#f8f8f5;cursor:pointer;font-weight:700; transition: var(--transition);
+    }
+    .tab[aria-selected="true"]{background:var(--accent);color:#333;border-color:transparent; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(210,180,140,0.2);}
+    .tab:hover:not([aria-selected="true"]) {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .proj-desc{line-height:1.7;color:var(--muted); margin-bottom: 1.5rem;}
+    .proj-name{font-weight:800;margin:0 0 12px; font-size: 1.4rem;}
+
+    .contact{display:grid;gap:var(--gap);grid-template-columns:1fr 1fr}
+    @media (max-width:900px){.contact{grid-template-columns:1fr}}
+    .field{display:grid;gap:8px;margin-bottom:18px}
+    .input, .textarea{
+      background:#f8f8f5;border:1px solid #e0e0d8;border-radius:12px;padding:14px 16px;color:var(--text); transition: var(--transition);
+      font-size: 1rem;
+    }
+    .input:focus, .textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(210,180,140,0.2);
+    }
+    .textarea{min-height:140px;resize:vertical}
+    .pill{display:inline-flex;align-items:center;gap:12px;background:#f8f8f5;border:1px solid #e0e0d8;padding:12px 16px;border-radius:12px; transition: var(--transition); margin-bottom: 12px;}
+    .pill:hover {transform: translateX(5px); border-color: var(--accent); box-shadow: 0 6px 16px rgba(0,0,0,0.1);}
+    .pill i{color:var(--accent); font-size: 1.1rem;}
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .skill-item {
+      background: #f8f8f5;
+      border: 1px solid #e0e0d8;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .skill-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    footer{padding:40px 0;color:#9a9a9d;border-top:1px solid #e0e0e0; text-align: center;}
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 99;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      background: var(--accent-2);
+      color: #fff;
+      box-shadow: 0 6px 25px rgba(139,115,85,0.3);
+    }
+
+    /* Enable text selection for specific elements */
+    .input, .textarea, .tab, .btn, .cta, .skill-item, .service, .card, .pill {
+      user-select: none;
+      cursor: default;
+    }
+
+    /* Allow text selection in textareas and inputs */
+    textarea, input {
+      user-select: text;
+      cursor: text;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap inner">
+      <a href="#home" class="brand">
+        <span class="dot"></span>
+        <span>Moataz Sameh</span>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact" class="cta"><b>Let's Connect</b></a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="root" class="wrap"></main>
+
+  <button class="scroll-top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    function SectionTitle({kicker, title, sub}){
+      return (
+        <header style={{marginBottom:16}} className="fade-in">
+          {kicker && <div className="badge"><i className="fa-solid fa-bolt"></i>{kicker}</div>}
+          <h2 className="section-title">{title}</h2>
+          {sub && <p className="muted">{sub}</p>}
+        </header>
+      );
+    }
+
+    function Hero(){
+      return (
+        <section id="home" className="grid hero" aria-label="Home">
+          <div className="content-wrapper">
+            <span className="badge fade-in"><i className="fa-solid fa-brain"></i> Machine Learning Engineer</span>
+            <h1 className="title fade-in delay-1">Hello, I'm <span style={{color:'var(--accent)'}}>Moataz Sameh</span></h1>
+            <p className="subtitle fade-in delay-1">Machine Learning Engineer specializing in building predictive models and end-to-end AI systems, with a focus on real-world applications in telecom analytics and healthcare intelligence.</p>
+
+            <div className="social" aria-label="Social links">
+              <a href="http://www.linkedin.com/in/motaz-sameh-shehata" target="_blank" rel="noreferrer" title="LinkedIn" className="fade-in delay-2"><i className="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://github.com/MotazSameh" target="_blank" rel="noreferrer" title="GitHub" className="fade-in delay-2"><i className="fa-brands fa-github"></i></a>
+              <a href="https://wa.me/201271507300" target="_blank" rel="noreferrer" title="WhatsApp" className="fade-in delay-2"><i className="fa-brands fa-whatsapp"></i></a>
+              <a href="assets/Moataz_Sameh_Shehata_Resume.pdf" title="Download CV" className="fade-in delay-2"><i className="fa-solid fa-file-arrow-down"></i></a>
+            </div>
+
+            <div style={{display:'flex',gap:12,marginTop:18,flexWrap:'wrap'}}>
+              <a className="btn accent fade-in delay-3" href="#contact"><i className="fa-regular fa-paper-plane"></i>Let's Connect</a>
+              <a className="btn fade-in delay-3" href="#projects"><i className="fa-solid fa-diagram-project"></i>View Projects</a>
+            </div>
+          </div>
+
+          <aside className="heroCard fade-in delay-2">
+            <img src="assets/MOATAZ_SAMEH.jpg" alt="Moataz Sameh portrait" />
+          </aside>
+        </section>
+      );
+    }
+
+    function About(){
+      return (
+        <section id="about">
+          <div className="content-wrapper">
+            <SectionTitle kicker="About" title="Who I Am" />
+            <div className="card" style={{lineHeight:1.7}}>
+              <p>I'm an aspiring <strong>Machine Learning Engineer</strong> with nearly one year of hands-on experience in machine learning, deep learning, and end-to-end model development. Proficient in <strong>Python</strong>, <strong>TensorFlow</strong>, <strong>PyTorch</strong>, and <strong>scikit-learn</strong>, with working knowledge of <strong>MLflow</strong>, <strong>Kubernetes</strong>, and cloud deployment on <strong>AWS/GCP</strong>.</p>
+              
+              <p>Experienced in building feature pipelines, training scalable models, and deploying production-grade solutions through multiple AI projects. Strong in experimentation, hyperparameter optimization, model interpretability, and cross-functional collaboration.</p>
+              
+              <p>Eager to apply and expand my skills in a dynamic, growth-oriented environment that values continuous learning and innovation.</p>
+              
+              <div style={{marginTop:24}}>
+                <a className="btn accent" href="#contact"><i className="fa-regular fa-handshake"></i>Let's Connect</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Education(){
+  return (
+    <section id="education">
+      <div className="content-wrapper">
+        <SectionTitle kicker="Education" title="Academic Background" />
+
+        <div className="card">
+          <h3>Machine Learning & Artificial Intelligence</h3>
+          <p>Menoufia National University</p>
+          <p>2023 – Present</p>
+          <p>GPA: 3.61/4.0</p>
+          <p>Relevant coursework: Machine Learning, Deep Learning, Data Structures, Databases.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+    function Skills() {
+     const groups = [
+    {
+      title: "Machine Learning & AI",
+      items: ["Scikit-learn", "TensorFlow", "PyTorch", "XGBoost", "Feature Engineering", "Model Evaluation"]
+    },
+    {
+      title: "Data Engineering",
+      items: ["SQL", "Data Cleaning", "ETL Concepts", "Data Visualization"]
+    },
+    {
+      title: "Deployment & MLOps",
+      items: ["MLflow", "Docker", "Kubernetes (Basics)", "AWS/GCP (Foundations)"]
+    },
+    {
+      title: "Programming",
+      items: ["Python", "OOP", "Data Structures"]
+    }
+  ];
+      
+        return (
+      <section id="skills">
+        <div className="content-wrapper">
+          <SectionTitle kicker="Skills" title="Technical Expertise" sub="A structured view of the tools and concepts I use" />
+
+          <div className="services" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+            {groups.map((g, idx) => (
+             <article className="card service fade-in" key={idx} style={{animationDelay: `${idx * 0.1}s`}}>
+               <h3><i className="fa-solid fa-screwdriver-wrench"></i>{g.title}</h3>
+               {g.items.map((it, i) => <p key={i}>• {it}</p>)}
+             </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+    function Services(){
+      const items = [
+  {
+    title:"Predictive Modeling",
+    icon:"fa-robot",
+    lines:[
+      "Build classification and regression models for real-world problems.",
+      "Model evaluation using Precision, Recall, F1, ROC-AUC."
+    ]
+  },
+  {
+    title:"End-to-End ML Pipelines",
+    icon:"fa-diagram-project",
+    lines:[
+      "From preprocessing to training and validation.",
+      "Reusable pipelines with clean, maintainable structure."
+    ]
+  },
+  {
+    title:"Performance Optimization",
+    icon:"fa-gauge-high",
+    lines:[
+      "Hyperparameter tuning and feature selection.",
+      "Error analysis and model improvement iterations."
+    ]
+  },
+  {
+    title:"AI Applications (Telecom & Healthcare)",
+    icon:"fa-heart-pulse",
+    lines:[
+      "Customer analytics (e.g., churn prediction).",
+      "Healthcare intelligence (risk prediction / decision support)."
+    ]
+  },
+  {
+    title:"MLOps Foundations",
+    icon:"fa-cloud",
+    lines:[
+      "Experiment tracking basics (MLflow).",
+      "Containerization and deployment concepts (Docker / cloud)."
+    ]
+  },
+  {
+    title:"Clean Data & Insights",
+    icon:"fa-database",
+    lines:[
+      "Data cleaning, encoding, and transformation.",
+      "Visualization for insights and decision-making."
+    ]
+        },
+
+        {
+          title:"Data Pipeline Development",
+          icon:"fa-code-branch",
+          lines:[
+            "Design and implement ETL/ELT processes.",
+            "Build scalable data pipelines with Airflow and Docker."
+          ]
+        },
+        {
+          title:"Database Management",
+          icon:"fa-server",
+          lines:[
+            "Design and optimize database schemas.",
+            "Implement efficient data storage and retrieval systems."
+          ]
+        }
+      ];
+
+      return (
+        <section id="services">
+          <div className="content-wrapper">
+            <SectionTitle kicker="Focus" title="What I Focus On" sub="How I approach building practical ML systems" />
+            <div className="services">
+              {items.map((s,idx)=>(
+                <article className="card service fade-in" key={idx} style={{animationDelay: `${idx * 0.1}s`}}>
+                  <h3><i className={`fa-solid ${s.icon}`}></i>{s.title}</h3>
+                  {s.lines.map((l,i)=><p key={i}>• {l}</p>)}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Projects(){
+      const tabs = [
+        {
+          key:"database",
+          label:"Database Project",
+          name:"BOOKSTORE MANAGEMENT SYSTEM",
+          desc:`Problem: Managing bookstore operations manually leads to inefficient inventory tracking and limited reporting capabilities.
+                Solution: Designed and implemented a normalized relational database system handling customers, inventory, orders, loans, reviews, and payments with structured data modeling.
+                Highlights: Database schema design, SQL queries, data integrity enforcement, business reporting and analytics support.`,
+          images : ['assets/Final_ERD.png'],
+          technologies: ["SQL", "Database Design", "Business Intelligence", "Data Modeling"],
+          icons: ["fa-database", "fa-chart-bar", "fa-users", "fa-book"]
+        },
+        {
+          key:"imageproc",
+          label:"Image Processing App",
+          name:"IMAGE PROCESSING APPLICATION",
+          desc:`Problem: Researchers and students need an interactive way to experiment with image processing techniques.
+                Solution: Built a Flask-based web application integrating OpenCV for real-time image transformations including filtering, thresholding, histogram equalization, and noise operations.
+                Highlights: Real-time image manipulation, interactive web interface, multiple computer vision operations, practical experimentation environment.`,
+          technologies: ["Python", "Flask", "OpenCV", "Computer Vision"],
+          icons: ["fa-image", "fa-camera", "fa-filter", "fa-sliders"]
+        },
+        {
+          key:"datastructure",
+          label:"Data Structure Project",
+          name:"PRINT JOB QUEUE MANAGEMENT SYSTEM",
+          desc:`Problem: Traditional print queue systems lack structured priority management and real-time status tracking.
+                Solution: Implemented a priority-based print job queue system with a graphical interface and persistent storage using CSV integration.
+                Highlights: Priority scheduling logic, queue data structure implementation, job status simulation, GUI integration for real-time monitoring.`,
+          technologies: ["Python", "Data Structures", "GUI", "CSV Processing"],
+          icons: ["fa-layer-group", "fa-list-ol", "fa-tasks", "fa-file-csv"]
+        },
+        {
+          key:"machinelearning",
+          label:"Machine Learning GUI",
+          name:"MACHINE LEARNING GUI APPLICATION",
+          desc:`Problem: Many users struggle to build and test machine learning models due to coding complexity.
+                Solution: Developed a desktop GUI application that allows users to load datasets, preprocess data, train multiple ML models, and evaluate performance without writing code.
+                Highlights: End-to-end ML workflow, model comparison, performance metrics visualization, user-friendly experimentation interface.`,
+          icons: ["fa-brain", "fa-chart-line", "fa-cogs", "fa-eye"]
+        },
+        {
+          key:"computervision",
+          label:"Computer Vision Project",
+          name:"REAL-TIME AGE & GENDER ESTIMATION (DEEP LEARNING)",
+          desc:`Problem: Face-based demographic estimation requires robust feature extraction and simultaneous optimization of regression and classification objectives within a unified architecture.
+                Solution: Designed a multi-task deep learning system leveraging pretrained MobileNetV2 as a feature extractor, with separate fully connected heads for age regression and gender classification. Applied face detection preprocessing using OpenCV before model inference.
+                Highlights: Transfer learning, dual-head neural architecture, regression + binary classification in one forward pass, probability-based gender thresholding, GPU-enabled inference, and deployment via a modern Python GUI application.`,
+          images : ['assets/CV1.jpeg','assets/CV2.jpeg'],
+          technologies: ["PyTorch", "Transfer Learning", "OpenCV", "Deep Learning"],
+          icons: ["fa-brain", "fa-bolt", "fa-eye", "fa-microchip"]
+        },
+        {
+          key:"deeplearning",
+          label:"Deep Learning Project",
+          name:"HYBRID DEEP LEARNING PLATFORM (VISION + NLP)",
+          desc:`Problem: Intelligent systems often require handling heterogeneous data types such as images and sequential text while maintaining deployment-ready architecture.
+                Solution: Architected a hybrid deep learning platform integrating a CNN-based image classifier for fashion recognition alongside character-level RNN and LSTM models trained on Shakespeare plays for generative text modeling. All models were deployed within a unified GUI application.
+                Highlights: CNN-based feature extraction, character-level sequence modeling, temperature-based sampling for controlled text generation, multi-model inference pipeline, PyTorch implementation, and desktop deployment using CustomTkinter.`,
+          images : ['assets/D_Cnn.png','assets/D_Rnn.png','assets/D_lstm.png'],
+          technologies: ["Deep Learning", "Computer Vision", "NLP", "PyTorch"],
+          icons: ["fa-microchip", "fa-eye", "fa-book", "fa-robot"]
+        }
+
+      ];
+      const [active, setActive] = useState(tabs[0].key);
+      const [imgIndex, setImgIndex] = useState(0);
+
+      useEffect(() => {
+      setImgIndex(0);
+      }, [active]);
+      const current = tabs.find(t=>t.key===active);
+
+      return (
+        <section id="projects">
+          <div className="content-wrapper">
+            <SectionTitle kicker="Projects" title="My Projects" sub="A showcase of my recent machine learning and engineering projects" />
+            <div className="tabs" role="tablist" aria-label="Project Tabs">
+              {tabs.map(t=>(
+                <button
+                  key={t.key}
+                  className="tab"
+                  role="tab"
+                  aria-selected={active===t.key}
+                  onClick={()=>setActive(t.key)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+<article className="card fade-in">
+  {current.images && current.images.length > 0 && (
+    <div
+  style={{
+    width: "100%",
+    height: "420px",
+    background: "#111",
+    borderRadius: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    padding: "20px"
+  }}
+>
+<img
+    src={current.images[imgIndex]}
+    alt={current.name}
+    style={{
+      maxWidth: "100%",
+      maxHeight: "100%",
+      objectFit: "contain"
+    }}
+  />
+
+      {current.images.length > 1 && (
+        <>
+          <button
+            onClick={() =>
+              setImgIndex((imgIndex - 1 + current.images.length) % current.images.length)
+            }
+            style={{
+              position: "absolute",
+              left: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "rgba(0,0,0,0.6)",
+              color: "white",
+              border: "none",
+              padding: "8px 12px",
+              borderRadius: "50%",
+              cursor: "pointer"
+            }}
+          >
+            ‹
+          </button>
+
+          <button
+            onClick={() => setImgIndex((imgIndex + 1) % current.images.length)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "rgba(0,0,0,0.6)",
+              color: "white",
+              border: "none",
+              padding: "8px 12px",
+              borderRadius: "50%",
+              cursor: "pointer"
+            }}
+          >
+            ›
+          </button>
+        </>
+      )}
+    </div>
+  )}
+
+  <h3 className="proj-name">{current.name}</h3>
+  <p className="proj-desc">{current.desc}</p>
+
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "20px" }}>
+    {current.technologies?.map((tech, index) => (
+      <span
+        key={index}
+        style={{
+          background: "rgba(210,180,140,0.1)",
+          color: "var(--accent)",
+          padding: "6px 12px",
+          borderRadius: "20px",
+          fontSize: "0.85rem",
+          fontWeight: "600",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px"
+        }}
+      >
+        <i className={current.icons?.[index] || "fa-solid fa-circle"}></i>
+        {tech}
+      </span>
+    ))}
+  </div>
+</article>
+          </div>
+        </section>
+      );
+    }
+
+    function Contact(){
+      const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+      });
+      
+      const [isSubmitting, setIsSubmitting] = useState(false);
+      
+      const handleChange = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.id]: e.target.value
+        });
+      };
+      
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        
+        // Simulate form submission
+        setTimeout(() => {
+          alert(`Thank you for your message, ${formData.name}! I'll get back to you soon.`);
+          setFormData({ name: '', email: '', message: '' });
+          setIsSubmitting(false);
+        }, 1000);
+      };
+      
+      return (
+        <section id="contact">
+          <div className="content-wrapper">
+            <SectionTitle kicker="Contact" title="Let's Connect" sub="Get in touch with me for collaborations or just a friendly hello." />
+            <div className="contact">
+              <div className="card">
+                <form onSubmit={handleSubmit}>
+                  <div className="field">
+                    <label htmlFor="name">Your Name</label>
+                    <input className="input" id="name" type="text" placeholder="Your name" value={formData.name} onChange={handleChange} required />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="email">Email</label>
+                    <input className="input" id="email" type="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="msg">Message</label>
+                    <textarea className="textarea" id="msg" placeholder="Write your message..." value={formData.message} onChange={handleChange} required></textarea>
+                  </div>
+                  <button className="btn accent" type="submit" disabled={isSubmitting}>
+                    <i className="fa-regular fa-paper-plane"></i>
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                </form>
+              </div>
+
+              <div>
+                <div className="card">
+                  <p className="muted">Feel free to reach out for collaborations or just a friendly hello. I'll try my best to get back to you!</p>
+                  <div style={{marginTop:24}}>
+                    <a className="pill" href="mailto:motazsameh99@gmail.com" target="_blank" rel="noreferrer">
+                      <i className="fa-regular fa-envelope"></i>
+                      motazsameh99@gmail.com
+                    </a>
+                    <a className="pill" href="https://wa.me/201271507300" target="_blank" rel="noreferrer">
+                      <i className="fa-brands fa-whatsapp"></i>
+                      +20 127 155 0730
+                    </a>
+                    <a className="pill" href="http://www.linkedin.com/in/motaz-sameh-shehata" target="_blank" rel="noreferrer">
+                      <i className="fa-brands fa-linkedin-in"></i>
+                      LinkedIn
+                    </a>
+                    <a className="pill" href="https://github.com/MotazSameh" target="_blank" rel="noreferrer">
+                      <i className="fa-brands fa-github"></i>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer(){
+      return (
+        <footer>
+          <p>© {new Date().getFullYear()} Moataz Sameh. All rights reserved.</p>
+        </footer>
+      );
+    }
+
+    function App() {
+      const [scrollTop, setScrollTop] = useState(false);
+      
+      useEffect(() => {
+        const handleScroll = () => {
+          setScrollTop(window.scrollY > 300);
+          
+          // Add scrolled class to nav
+          const nav = document.querySelector('.nav');
+          if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+          } else {
+            nav.classList.remove('scrolled');
+          }
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const links = document.querySelector('.links');
+        
+        menuToggle.addEventListener('click', () => {
+          menuToggle.classList.toggle('active');
+          links.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking on links
+        const navLinks = document.querySelectorAll('.links a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            links.classList.remove('open');
+          });
+        });
+        
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+      
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
+      
+      return (
+        <>
+          <Hero />
+          <About />
+          <Education />
+          <Skills />
+          <Services />
+          <Projects />
+          <Contact />
+          <Footer />
+          
+          <button 
+            className={`scroll-top ${scrollTop ? 'visible' : ''}`} 
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+          >
+            <i className="fas fa-arrow-up"></i>
+          </button>
+        </>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
