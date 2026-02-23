@@ -559,196 +559,219 @@
       );
     }
 
-    function Projects(){
-      const tabs = [
-        {
-          key:"database",
-          label:"Database Project",
-          name:"BOOKSTORE MANAGEMENT SYSTEM",
-          desc:`Problem: Managing bookstore operations manually leads to inefficient inventory tracking and limited reporting capabilities.
-                Solution: Designed and implemented a normalized relational database system handling customers, inventory, orders, loans, reviews, and payments with structured data modeling.
-                Highlights: Database schema design, SQL queries, data integrity enforcement, business reporting and analytics support.`,
-          images : ['assets/Final_ERD.png'],
-          technologies: ["SQL", "Database Design", "Business Intelligence", "Data Modeling"],
-          icons: ["fa-database", "fa-chart-bar", "fa-users", "fa-book"]
-        },
-        {
-          key:"imageproc",
-          label:"Image Processing App",
-          name:"IMAGE PROCESSING APPLICATION",
-          desc:`Problem: Researchers and students need an interactive way to experiment with image processing techniques.
-                Solution: Built a Flask-based web application integrating OpenCV for real-time image transformations including filtering, thresholding, histogram equalization, and noise operations.
-                Highlights: Real-time image manipulation, interactive web interface, multiple computer vision operations, practical experimentation environment.`,
-          technologies: ["Python", "Flask", "OpenCV", "Computer Vision"],
-          icons: ["fa-image", "fa-camera", "fa-filter", "fa-sliders"]
-        },
-        {
-          key:"datastructure",
-          label:"Data Structure Project",
-          name:"PRINT JOB QUEUE MANAGEMENT SYSTEM",
-          desc:`Problem: Traditional print queue systems lack structured priority management and real-time status tracking.
-                Solution: Implemented a priority-based print job queue system with a graphical interface and persistent storage using CSV integration.
-                Highlights: Priority scheduling logic, queue data structure implementation, job status simulation, GUI integration for real-time monitoring.`,
-          technologies: ["Python", "Data Structures", "GUI", "CSV Processing"],
-          icons: ["fa-layer-group", "fa-list-ol", "fa-tasks", "fa-file-csv"]
-        },
-        {
-          key:"machinelearning",
-          label:"Machine Learning GUI",
-          name:"MACHINE LEARNING GUI APPLICATION",
-          desc:`Problem: Many users struggle to build and test machine learning models due to coding complexity.
-                Solution: Developed a desktop GUI application that allows users to load datasets, preprocess data, train multiple ML models, and evaluate performance without writing code.
-                Highlights: End-to-end ML workflow, model comparison, performance metrics visualization, user-friendly experimentation interface.`,
-          icons: ["fa-brain", "fa-chart-line", "fa-cogs", "fa-eye"]
-        },
-        {
-          key:"computervision",
-          label:"Computer Vision Project",
-          name:"REAL-TIME AGE & GENDER ESTIMATION (DEEP LEARNING)",
-          desc:`Problem: Face-based demographic estimation requires robust feature extraction and simultaneous optimization of regression and classification objectives within a unified architecture.
-                Solution: Designed a multi-task deep learning system leveraging pretrained MobileNetV2 as a feature extractor, with separate fully connected heads for age regression and gender classification. Applied face detection preprocessing using OpenCV before model inference.
-                Highlights: Transfer learning, dual-head neural architecture, regression + binary classification in one forward pass, probability-based gender thresholding, GPU-enabled inference, and deployment via a modern Python GUI application.`,
-          images : ['assets/CV1.jpeg','assets/CV2.jpeg'],
-          technologies: ["PyTorch", "Transfer Learning", "OpenCV", "Deep Learning"],
-          icons: ["fa-brain", "fa-bolt", "fa-eye", "fa-microchip"]
-        },
-        {
-          key:"deeplearning",
-          label:"Deep Learning Project",
-          name:"HYBRID DEEP LEARNING PLATFORM (VISION + NLP)",
-          desc:`Problem: Intelligent systems often require handling heterogeneous data types such as images and sequential text while maintaining deployment-ready architecture.
-                Solution: Architected a hybrid deep learning platform integrating a CNN-based image classifier for fashion recognition alongside character-level RNN and LSTM models trained on Shakespeare plays for generative text modeling. All models were deployed within a unified GUI application.
-                Highlights: CNN-based feature extraction, character-level sequence modeling, temperature-based sampling for controlled text generation, multi-model inference pipeline, PyTorch implementation, and desktop deployment using CustomTkinter.`,
-          images : ['assets/D_Cnn.png','assets/D_Rnn.png','assets/D_lstm.png'],
-          technologies: ["Deep Learning", "Computer Vision", "NLP", "PyTorch"],
-          icons: ["fa-microchip", "fa-eye", "fa-book", "fa-robot"]
-        }
-
-      ];
-      const [active, setActive] = useState(tabs[0].key);
-      const [imgIndex, setImgIndex] = useState(0);
-
-      useEffect(() => {
-      setImgIndex(0);
-      }, [active]);
-      const current = tabs.find(t=>t.key===active);
-
-      return (
-        <section id="projects">
-          <div className="content-wrapper">
-            <SectionTitle kicker="Projects" title="My Projects" sub="A showcase of my recent machine learning and engineering projects" />
-            <div className="tabs" role="tablist" aria-label="Project Tabs">
-              {tabs.map(t=>(
-                <button
-                  key={t.key}
-                  className="tab"
-                  role="tab"
-                  aria-selected={active===t.key}
-                  onClick={()=>setActive(t.key)}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
-<article className="card fade-in">
-  {current.images && current.images.length > 0 && (
-    <div
-  style={{
-    width: "100%",
-    height: "420px",
-    background: "#111",
-    borderRadius: "20px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    padding: "20px"
-  }}
->
-<img
-    src={current.images[imgIndex]}
-    alt={current.name}
-    style={{
-      maxWidth: "100%",
-      maxHeight: "100%",
-      objectFit: "contain"
-    }}
-  />
-
-      {current.images.length > 1 && (
-        <>
-          <button
-            onClick={() =>
-              setImgIndex((imgIndex - 1 + current.images.length) % current.images.length)
-            }
-            style={{
-              position: "absolute",
-              left: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(0,0,0,0.6)",
-              color: "white",
-              border: "none",
-              padding: "8px 12px",
-              borderRadius: "50%",
-              cursor: "pointer"
-            }}
-          >
-            ‹
-          </button>
-
-          <button
-            onClick={() => setImgIndex((imgIndex + 1) % current.images.length)}
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "rgba(0,0,0,0.6)",
-              color: "white",
-              border: "none",
-              padding: "8px 12px",
-              borderRadius: "50%",
-              cursor: "pointer"
-            }}
-          >
-            ›
-          </button>
-        </>
-      )}
-    </div>
-  )}
-
-  <h3 className="proj-name">{current.name}</h3>
-  <p className="proj-desc">{current.desc}</p>
-
-  <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "20px" }}>
-    {current.technologies?.map((tech, index) => (
-      <span
-        key={index}
-        style={{
-          background: "rgba(210,180,140,0.1)",
-          color: "var(--accent)",
-          padding: "6px 12px",
-          borderRadius: "20px",
-          fontSize: "0.85rem",
-          fontWeight: "600",
-          display: "flex",
-          alignItems: "center",
-          gap: "6px"
-        }}
-      >
-        <i className={current.icons?.[index] || "fa-solid fa-circle"}></i>
-        {tech}
-      </span>
-    ))}
-  </div>
-</article>
-          </div>
-        </section>
-      );
+     function Projects(){
+  const tabs = [
+    {
+      key:"database",
+      label:"Database Project",
+      name:"BOOKSTORE MANAGEMENT SYSTEM",
+      problem:"Managing bookstore operations manually leads to inefficient inventory tracking and limited reporting capabilities.",
+      solution:"Designed and implemented a normalized relational database system handling customers, inventory, orders, loans, reviews, and payments with structured data modeling.",
+      highlights:"Database schema design, SQL queries, data integrity enforcement, business reporting and analytics support.",
+      images:["assets/Final_ERD.png"],
+      technologies:["SQL", "Database Design", "Business Intelligence", "Data Modeling"],
+      icons:["fa-solid fa-database", "fa-solid fa-diagram-project", "fa-solid fa-chart-bar", "fa-solid fa-table"]
+    },
+    {
+      key:"imageproc",
+      label:"Image Processing App",
+      name:"IMAGE PROCESSING APPLICATION",
+      problem:"Researchers and students need an interactive way to experiment with image processing techniques.",
+      solution:"Built a Flask-based web application integrating OpenCV for real-time image transformations including filtering, thresholding, histogram equalization, and noise operations.",
+      highlights:"Real-time image manipulation, interactive web interface, multiple computer vision operations, practical experimentation environment.",
+      technologies:["Python", "Flask", "OpenCV", "Computer Vision"],
+      icons:["fa-solid fa-code", "fa-solid fa-server", "fa-solid fa-camera", "fa-solid fa-eye"]
+    },
+    {
+      key:"datastructure",
+      label:"Data Structure Project",
+      name:"PRINT JOB QUEUE MANAGEMENT SYSTEM",
+      problem:"Traditional print queue systems lack structured priority management and real-time status tracking.",
+      solution:"Implemented a priority-based print job queue system with a graphical interface and persistent storage using CSV integration.",
+      highlights:"Priority scheduling logic, queue data structure implementation, job status simulation, GUI integration for real-time monitoring.",
+      technologies:["Python", "Data Structures", "GUI", "CSV Processing"],
+      icons:["fa-solid fa-python", "fa-solid fa-layer-group", "fa-solid fa-window-maximize", "fa-solid fa-file-csv"]
+    },
+    {
+      key:"machinelearning",
+      label:"Machine Learning GUI",
+      name:"MACHINE LEARNING GUI APPLICATION",
+      problem:"Many users struggle to build and test machine learning models due to coding complexity.",
+      solution:"Developed a desktop GUI that allows users to load datasets, preprocess data, train multiple ML models, and evaluate performance without writing code.",
+      highlights:"End-to-end workflow, model comparison, evaluation visualizations, user-friendly experimentation interface.",
+      technologies:["Python", "Scikit-learn", "GUI", "Model Evaluation"],
+      icons:["fa-solid fa-python", "fa-solid fa-brain", "fa-solid fa-window-maximize", "fa-solid fa-chart-line"]
+    },
+    {
+      key:"computervision",
+      label:"Computer Vision Project",
+      name:"REAL-TIME AGE & GENDER ESTIMATION (DEEP LEARNING)",
+      problem:"Face-based demographic estimation needs robust feature extraction and simultaneous optimization of classification and regression objectives.",
+      solution:"Designed a multi-task deep learning system using pretrained MobileNetV2 as a feature extractor with two heads: one for age regression and one for gender classification, with OpenCV face detection preprocessing.",
+      highlights:"Transfer learning, dual-head architecture, regression + classification in one forward pass, GPU-ready inference, desktop GUI deployment.",
+      images:["assets/CV1.jpeg","assets/CV2.jpeg"],
+      technologies:["PyTorch", "Transfer Learning", "OpenCV", "Deep Learning"],
+      icons:["fa-solid fa-microchip", "fa-solid fa-bolt", "fa-solid fa-eye", "fa-solid fa-robot"]
+    },
+    {
+      key:"deeplearning",
+      label:"Deep Learning Project",
+      name:"HYBRID DEEP LEARNING PLATFORM (VISION + NLP)",
+      problem:"AI systems often need to handle heterogeneous data types (images + sequential text) while staying deployment-ready.",
+      solution:"Built a hybrid platform that combines a CNN fashion classifier with character-level RNN and LSTM models trained on Shakespeare plays for generative text, deployed in one GUI app.",
+      highlights:"CNN feature extraction, sequence modeling, temperature-based sampling, multi-model inference pipeline, desktop deployment using CustomTkinter.",
+      images:["assets/D_Cnn.png","assets/D_Rnn.png","assets/D_lstm.png"],
+      technologies:["Deep Learning", "Computer Vision", "NLP", "PyTorch"],
+      icons:["fa-solid fa-microchip", "fa-solid fa-eye", "fa-solid fa-book", "fa-solid fa-robot"]
     }
+  ];
 
+  const [active, setActive] = useState(tabs[0].key);
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    setImgIndex(0);
+  }, [active]);
+
+  const current = tabs.find(t => t.key === active);
+
+  const hasImages = current.images && current.images.length > 0;
+
+  return (
+    <section id="projects">
+      <div className="content-wrapper">
+        <SectionTitle
+          kicker="Projects"
+          title="My Projects"
+          sub="A showcase of my recent machine learning and engineering projects"
+        />
+
+        <div className="tabs" role="tablist" aria-label="Project Tabs">
+          {tabs.map(t => (
+            <button
+              key={t.key}
+              className="tab"
+              role="tab"
+              aria-selected={active === t.key}
+              onClick={() => setActive(t.key)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <article className="card fade-in">
+          {/* ----- Images Slider ----- */}
+          {hasImages && (
+            <div
+              style={{
+                width: "100%",
+                height: "420px",
+                background: "#111",
+                borderRadius: "20px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                padding: "20px",
+                position: "relative", // مهم للسهمين
+                marginBottom: "16px"
+              }}
+            >
+              <img
+                src={current.images[imgIndex]}
+                alt={current.name}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain"
+                }}
+              />
+
+              {current.images.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      setImgIndex((imgIndex - 1 + current.images.length) % current.images.length)
+                    }
+                    style={{
+                      position: "absolute",
+                      left: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "rgba(0,0,0,0.6)",
+                      color: "white",
+                      border: "none",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      cursor: "pointer"
+                    }}
+                    aria-label="Previous image"
+                  >
+                    ‹
+                  </button>
+
+                  <button
+                    onClick={() => setImgIndex((imgIndex + 1) % current.images.length)}
+                    style={{
+                      position: "absolute",
+                      right: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "rgba(0,0,0,0.6)",
+                      color: "white",
+                      border: "none",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      cursor: "pointer"
+                    }}
+                    aria-label="Next image"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ----- Title + Structured Description ----- */}
+          <h3 className="proj-name">{current.name}</h3>
+
+          <div className="proj-desc">
+            <p><strong>Problem:</strong> {current.problem}</p>
+            <p><strong>Solution:</strong> {current.solution}</p>
+            <p><strong>Highlights:</strong> {current.highlights}</p>
+          </div>
+
+          {/* ----- Technologies Pills ----- */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "20px" }}>
+            {current.technologies?.map((tech, index) => (
+              <span
+                key={index}
+                style={{
+                  background: "rgba(210,180,140,0.1)",
+                  color: "var(--accent)",
+                  padding: "6px 12px",
+                  borderRadius: "20px",
+                  fontSize: "0.85rem",
+                  fontWeight: "600",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px"
+                }}
+              >
+                <i className={current.icons?.[index] || "fa-solid fa-circle"}></i>
+                {tech}
+              </span>
+            ))}
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
     function Contact(){
       const [formData, setFormData] = useState({
         name: '',
@@ -913,4 +936,5 @@
     ReactDOM.render(<App />, document.getElementById('root'));
   </script>
 </body>
+
 </html>
