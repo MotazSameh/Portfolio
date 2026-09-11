@@ -780,6 +780,7 @@
       });
       
       const [isSubmitting, setIsSubmitting] = useState(false);
+      const [status, setStatus] = useState('idle'); // idle | sent | error
       
       const handleChange = (e) => {
         setFormData({
@@ -791,13 +792,23 @@
       const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
-        // Simulate form submission
-        setTimeout(() => {
-          alert(`Thank you for your message, ${formData.name}! I'll get back to you soon.`);
-          setFormData({ name: '', email: '', message: '' });
-          setIsSubmitting(false);
-        }, 1000);
+        setStatus('idle');
+
+        fetch('https://formspree.io/f/xnpqwgak', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(e.target)
+        })
+          .then((response) => {
+            if (response.ok) {
+              setStatus('sent');
+              setFormData({ name: '', email: '', message: '' });
+            } else {
+              setStatus('error');
+            }
+          })
+          .catch(() => setStatus('error'))
+          .finally(() => setIsSubmitting(false));
       };
       
       return (
@@ -809,20 +820,22 @@
                 <form onSubmit={handleSubmit}>
                   <div className="field">
                     <label htmlFor="name">Your Name</label>
-                    <input className="input" id="name" type="text" placeholder="Your name" value={formData.name} onChange={handleChange} required />
+                    <input className="input" id="name" name="name" type="text" placeholder="Your name" value={formData.name} onChange={handleChange} required />
                   </div>
                   <div className="field">
                     <label htmlFor="email">Email</label>
-                    <input className="input" id="email" type="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required />
+                    <input className="input" id="email" name="email" type="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required />
                   </div>
                   <div className="field">
                     <label htmlFor="msg">Message</label>
-                    <textarea className="textarea" id="msg" placeholder="Write your message..." value={formData.message} onChange={handleChange} required></textarea>
+                    <textarea className="textarea" id="msg" name="message" placeholder="Write your message..." value={formData.message} onChange={handleChange} required></textarea>
                   </div>
                   <button className="btn accent" type="submit" disabled={isSubmitting}>
                     <i className="fa-regular fa-paper-plane"></i>
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
+                  {status === 'sent' && <p style={{color:'#2E7D32', marginTop:'10px'}}>Message sent — thank you! I'll get back to you soon.</p>}
+                  {status === 'error' && <p style={{color:'#B00020', marginTop:'10px'}}>Something went wrong — please try again or email me directly.</p>}
                 </form>
               </div>
 
